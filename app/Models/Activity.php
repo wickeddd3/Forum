@@ -1,13 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class Activity extends Model
+class Activity extends BaseModel
 {
-    protected $guarded = [];
-
     public function subject()
     {
         return $this->morphTo();

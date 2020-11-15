@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Reply;
-use App\Like;
+use App\Models\Reply;
 
 class LikesController extends Controller
 {

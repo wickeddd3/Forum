@@ -72372,8 +72372,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\0FILES\MyProjects\MyPortfolio\Forum\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\0FILES\MyProjects\MyPortfolio\Forum\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\0FILES\MyProjects\MyGithubRepositories\Forum\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\0FILES\MyProjects\MyGithubRepositories\Forum\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

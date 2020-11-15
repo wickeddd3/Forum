@@ -1,13 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 
-class Channel extends Model
+class Channel extends BaseModel
 {
-    protected $guarded = [];
-
     public function getRouteKeyName()
     {
         return 'slug';

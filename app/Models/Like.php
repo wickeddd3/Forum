@@ -1,14 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
+use App\Traits\RecordsActivity;
 
-class Like extends Model
+class Like extends BaseModel
 {
     use RecordsActivity;
-
-    protected $guarded = [];
 
     public function liked()
     {

@@ -1,14 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
+use App\Traits\Likable;
+use App\Traits\RecordsActivity;
 
-class Reply extends Model
+class Reply extends BaseModel
 {
     use Likable, RecordsActivity;
-
-    protected $guarded = [];
 
     protected $with = ['owner', 'likes', 'thread'];
 

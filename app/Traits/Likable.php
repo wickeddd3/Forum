@@ -1,12 +1,10 @@
 <?php
 
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
+namespace App\Traits;
+use App\Models\Like;
 
 trait Likable
 {
-
     protected static function bootLikable()
     {
         static::deleting(function ($model) {

@@ -1,14 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use App\Notifications\ThreadWasUpdated;
 
-class ThreadFollow extends Model
+class ThreadFollow extends BaseModel
 {
-    protected $guarded = [];
-
     public function user()
     {
         return $this->belongsTo(User::class);

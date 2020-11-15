@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Channel;
-use App\Thread;
+use App\Models\Channel;
+use App\Models\Thread;
 
 class ThreadFollowsController extends Controller
 {

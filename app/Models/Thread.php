@@ -1,15 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\RecordsActivity;
+use App\Traits\FilteredThreads;
 
-class Thread extends Model
+class Thread extends BaseModel
 {
     use RecordsActivity, FilteredThreads;
-
-    protected $guarded = [];
 
     protected $with = ['creator', 'channel'];
 
