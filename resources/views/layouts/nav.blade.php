@@ -13,13 +13,11 @@
         <div id="topNav" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item" href="/threads">Threads</a>
-                <a class="navbar-item" href="">Topics</a>
-                <a class="navbar-item" href="">About</a>
             </div>
             <div class="navbar-end">
                 @guest
-                <a class="navbar-item" href="/register">Register</a>
-                <a class="navbar-item" href="/login">Log In</a>
+                <a class="navbar-item" href="/register">Sign Up</a>
+                <a class="navbar-item" href="/login">Sign In</a>
                 @else
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
@@ -50,3 +48,41 @@
         </div>
     </div>
 </nav>
+
+
+{{-- <b-navbar>
+    <template slot="brand">
+        <b-navbar-item href="/">
+            <div class="logo">
+                <img src="{{ asset('images/forum.png') }}" class="logo__img" />
+                <span class="logo__text">forum</span>
+            </div>
+        </b-navbar-item>
+    </template>
+    <template slot="start">
+        <b-navbar-item href="/threads">
+            Threads
+        </b-navbar-item>
+    </template>
+
+    <template slot="end">
+        <b-navbar-dropdown label="Profile">
+            <b-navbar-item href="#">
+                About
+            </b-navbar-item>
+            <b-navbar-item href="#">
+                Contact
+            </b-navbar-item>
+        </b-navbar-dropdown>
+        <b-navbar-item tag="div">
+            <div class="buttons">
+                <a href="/register" class="button is-primary">
+                    <strong>Sign up</strong>
+                </a>
+                <a href="/login" class="button is-light">
+                    Log in
+                </a>
+            </div>
+        </b-navbar-item>
+    </template>
+</b-navbar> --}}

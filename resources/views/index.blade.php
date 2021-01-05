@@ -1,21 +1,17 @@
 @extends('layouts.app')
 
-@section('title')
-Forum
-@endsection
-
 @section('content')
 <section class="hero">
     <div class="hero-body">
-        <div class="container has-text-centered">
-            <div class="columns is-8 is-variable is-vcentered">
-                <div class="column is-two-thirds has-text-left">
-                    <h1 class="title is-1">Create your account now!</h1>
-                    <p class="is-size-4">
-                        Share your ideas, questions, and insights with the topics you like.
+        <div class="container">
+            <div class="columns is-flex is-align-items-center is-flex-wrap-wrap">
+                <div class="column is-8">
+                    <h1 class="title is-2">Create your account now!</h1>
+                    <p class="is-size-5">
+                        Share your questions, problems, and insights with the topics you're interested.
                     </p>
                 </div>
-                <div class="column is-one-third has-text-left">
+                <div class="column is-4">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="field">

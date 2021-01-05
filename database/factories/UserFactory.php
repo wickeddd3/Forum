@@ -2,8 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
-use App\Profile;
+use App\Models\User;
+use App\Models\Profile;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +32,9 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(App\User::class, function ($user, $faker) {
-    Profile::create(['user_id' => $user->id, 'created_at' => Carbon::now() ]);
+$factory->afterCreating(User::class, function ($user, $faker) {
+    Profile::create([
+        'user_id' => $user->id, 'created_at' => Carbon::now(),
+        'avatar' => 'uploads/avatars/default_avatar.png'
+    ]);
 });

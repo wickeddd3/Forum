@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('title')
-Notifications
-@endsection
-
 @section('content')
 <notifications-view inline-template>
 <div class="container mt-4">

@@ -1,0 +1,19 @@
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__img {
+        width: 21px;
+        margin-right: .5rem;
+    }
+
+    &__text {
+        font-size: 1.3rem;
+
+        &::first-letter {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    }
+}

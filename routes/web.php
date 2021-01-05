@@ -17,11 +17,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/register', 'AuthenticationController@registerPage')->name('register.page');
-Route::post('/register', 'AuthenticationController@register')->name('register');
-Route::get('/login', 'AuthenticationController@loginPage')->name('login.page');
-Route::post('/login', 'AuthenticationController@login')->name('login');
-Route::post('/logout', 'AuthenticationController@logout')->name('logout');
+Auth::routes();
 
 Route::get('/threads', 'ThreadsController@index');
 Route::get('/threads/{channel}', 'ThreadsController@index');

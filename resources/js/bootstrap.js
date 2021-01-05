@@ -30,6 +30,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /** other js plugins */
 import Vue from 'vue'
+window.Vue = require('vue');
 
 // Buefy
 import Buefy from 'buefy'
@@ -42,4 +43,3 @@ import '@fortawesome/fontawesome-free/css/all.css'
 // Material Design Icons
 import '@mdi/font/css/materialdesignicons.css'
 
-window.Vue = require('vue');

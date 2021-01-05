@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
-use App\Channel;
-use App\Thread;
+use App\Models\User;
+use App\Models\Channel;
+use App\Models\Thread;
 
 class DatabaseSeeder extends Seeder
 {

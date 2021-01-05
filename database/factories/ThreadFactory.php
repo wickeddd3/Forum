@@ -2,9 +2,9 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Channel;
-use App\User;
-use App\Thread;
+use App\Models\Channel;
+use App\Models\User;
+use App\Models\Thread;
 use Faker\Generator as Faker;
 use Carbon\Carbon;
 
