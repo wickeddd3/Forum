@@ -12,7 +12,7 @@
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
         "@mdi/font": "^5.8.55",
-        "axios": "^0.19",
+        "axios": "^0.21",
         "buefy": "^0.9.4",
         "cross-env": "^7.0",
         "laravel-mix": "^5.0.1",
