@@ -2,17 +2,13 @@
 <div>
     <div class="columns mt-0 mb-0">
         <div class="column">
-            <b-dropdown
-                v-model="currentMenu"
-                aria-role="list"
-            >
-                <button class="button is-small is-primary" type="button" slot="trigger">
+            <b-dropdown v-model="currentMenu" aria-role="list">
+                <button class="button is-small is-info" type="button" slot="trigger">
                     <template>
                         <span>{{currentMenu.text}}</span>
                     </template>
                     <b-icon icon="menu-down"></b-icon>
                 </button>
-
                 <b-dropdown-item
                     v-for="(menu, index) in menus"
                     :key="index"
@@ -42,7 +38,7 @@
         <div v-for="thread in all_threads" :key="thread.id">
             <article class="post">
                 <h1 class="is-size-6">
-                    <a class="has-text-dark" :href="thread.path">{{ thread.title }}</a>
+                    <a class="has-text-dark" :href="thread.path">{{ limitContent(thread.title, 70) }}</a>
                 </h1>
                 <div class="media">
                     <div class="media-left">
@@ -52,8 +48,8 @@
                     </div>
                     <div class="media-content">
                         <div class="content">
-                            <p>
-                                <a class="has-text-dark" href="">{{ `@${thread.creator.username}` }}</a> {{ created(thread.created_at) }} &nbsp;
+                            <p class="has-text-dark">
+                                {{ `@${thread.creator.username} ${created(thread.created_at)}` }}
                             </p>
                         </div>
                     </div>
@@ -70,7 +66,7 @@
     </div>
 
     <div class="container has-text-centered" v-else>
-        <h6>No discussions yet.</h6>
+        <h6>No discussions found</h6>
     </div>
 </div>
 </template>
@@ -106,9 +102,6 @@ export default {
     computed: {
         signedIn() {
             return window.App.signedIn;
-        },
-        user() {
-            return window.App.user;
         },
     },
 
@@ -148,6 +141,12 @@ export default {
                 .catch((error) => {
                     this.loading = false;
                 });
+        },
+        limitContent(content, noOfChar) {
+            if(content.length > noOfChar) {
+                return content.substr(0, noOfChar) + '...';
+            }
+            return content;
         },
     }
 }

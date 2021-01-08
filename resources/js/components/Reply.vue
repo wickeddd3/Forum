@@ -1,39 +1,38 @@
 <template>
-<div>
-    <article class="media" :id="'reply-'+id">
-        <figure class="media-left">
-            <p class="image is-48x48">
-                <img :src="'/storage/'+data.owner.profile.avatar" width="5%">
-            </p>
+<article class="media my-2" :id="'reply-'+id">
+    <div class="media-left">
+        <figure class="image is-48x48">
+            <img class="is-rounded" :src="'/storage/'+data.owner.profile.avatar">
         </figure>
-        <div class="media-content">
-            <strong>{{ data.owner.username }}</strong>
-            <br>
+    </div>
+    <div class="media-content">
+        <div class="content">
+            <h6 class="subtitle is-6 is-inline">{{ data.owner.name }}</h6>
+            <small> {{ `@${data.owner.username}` }} </small>
             <div v-if="editing">
-                <textarea class="textarea is-small mb-2" v-model="message"></textarea>
+                <textarea class="textarea is-small my-2" v-model="message"></textarea>
                 <span>
-                    <button class="button is-small" @click="update">Update</button>
-                    <button class="button is-small" @click="editing = false">Cancel</button>
+                    <button class="button is-small is-success" @click="update">Update</button>
+                    <button class="button is-small is-warning" @click="editing = false">Cancel</button>
                 </span>
             </div>
-            <div class="content" v-text="message" v-else></div>
+            <div v-text="message" v-else></div>
             <small>
-                <like :reply="data"></like>
-                · {{ ago }}
+                <like :reply="data"></like>· {{ ago }}
             </small>
         </div>
-        <div v-if="canUpdate" class="media-right">
-            <span  class="is-size-7">
-                <a class="has-text-dark mr-2" @click="editing = true">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a class="has-text-dark" @click="destroy">
-                    <i class="fas fa-trash"></i>
-                </a>
-            </span>
-        </div>
-    </article>
-</div>
+    </div>
+    <div v-if="canUpdate" class="media-right">
+        <span  class="is-size-7">
+            <a class="has-text-dark mr-2" @click="editing = true">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a class="has-text-dark" @click="destroy">
+                <i class="fas fa-trash"></i>
+            </a>
+        </span>
+    </div>
+</article>
 </template>
 
 <script>
@@ -63,8 +62,8 @@ export default {
             return moment(this.data.created_at).fromNow();
         },
         canUpdate() {
-            if(window.App.user){
-                return this.data.user_id == window.App.user.id;
+            if(window.App.user && window.App.verified){
+                return this.data.user_id == window.App.user;
             }
         }
     },

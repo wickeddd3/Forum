@@ -1,18 +1,22 @@
 <template>
+<span>
     <span>
-        <span>
-            <span v-text="count"></span>
-            <i class="fas fa-thumbs-up"></i>
-        </span>
-        <span v-if="signedIn">
-            <a class="has-text-dark" v-if="this.active" @click="toggle()">
-               · Unlike
-            </a>
-            <a class="has-text-dark" v-else @click="toggle()">
-               · Like
-            </a>
-        </span>
+        <span v-text="count"></span>
+        <i class="fas fa-thumbs-up"></i>
     </span>
+    <span v-if="signedIn && verified">
+        <a class="has-text-dark"
+            v-if="this.active"
+            @click="toggle()">
+            · Unlike
+        </a>
+        <a class="has-text-dark"
+            @click="toggle()"
+            v-else>
+            · Like
+        </a>
+    </span>
+</span>
 </template>
 
 <script>
@@ -29,6 +33,9 @@ export default {
     computed: {
         signedIn() {
             return window.App.signedIn;
+        },
+        verified() {
+            return window.App.verified;
         },
         endpoint() {
             return '/replies/' + this.reply.id + '/likes';

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password',
+        'name', 'username', 'email', 'password', 'avatar'
     ];
 
     /**
@@ -40,11 +40,6 @@ class User extends Authenticatable
     protected $with = [
         'profile'
     ];
-
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
-    }
 
     public function threads()
     {

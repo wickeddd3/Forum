@@ -16,7 +16,7 @@ class RepliesController extends Controller
 
     public function __construct(ReplyRepositoryInterface $replyRepository)
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'verified'])->except('index');
 
         $this->replyRepository = $replyRepository;
     }

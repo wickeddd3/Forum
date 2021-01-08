@@ -27,9 +27,8 @@
             </div>
         </div>
     </section>
-    <br>
 
-    <section class="container">
+    <section class="container py-3">
         <b-tabs type="is-boxed" size="is-small" position="is-centered">
             <b-tab-item label="Profile" icon="account">
                 <profile :profile="profile"></profile>

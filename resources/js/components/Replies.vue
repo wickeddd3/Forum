@@ -1,17 +1,15 @@
 <template>
 <div>
-    <div v-if="items.length > 0">
+    <template v-if="items.length > 0">
         <div v-for="(reply, index) in items" :key="reply.id">
             <reply :data="reply" @deleted="remove(index)"></reply>
-            <br>
         </div>
-    </div>
-    <div v-else>
-        <div class="container has-text-centered has-text-weight-semibold pb-5">
-            No replies yet.
-        </div>
-    </div>
-
+    </template>
+    <template v-else>
+        <p class="has-text-centered my-5">
+            <i class="fas fa-comments"></i> No replies
+        </p>
+    </template>
     <new-reply @created="add"></new-reply>
 </div>
 </template>

@@ -1,28 +1,21 @@
 <template>
 <div>
-    <article class="media" id="reply" v-if="signedIn">
-        <figure class="media-left">
-            <p class="image is-64x64">
-                <img :src="'/storage/'+user.profile.avatar" width="5%">
+    <template v-if="signedIn">
+        <div class="container my-5" v-if="verified">
+            <textarea class="textarea is-small" v-model="message" placeholder="Write your reply here..."></textarea>
+            <p class="is-block has-text-right my-2">
+                <button class="button is-small is-success " @click="addReply">Post reply</button>
             </p>
-        </figure>
-        <div class="media-content">
-            <div class="field">
-                <p class="control">
-                <textarea class="textarea is-small" v-model="message" placeholder="Add a reply..."></textarea>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control">
-                    <button class="button is-primary is-small" @click="addReply">Post reply</button>
-                </p>
-            </div>
         </div>
-    </article>
-
-    <div class="container has-text-centered" v-else>
-        Please <a href="/login"><b>Log In</b></a> to participate in this discussions
-    </div>
+        <p class="has-text-centered my-5" v-else>
+            You must <a href="/email/verify">&nbsp;Verify&nbsp;</a> your email to participate in this discussion.
+        </p>
+    </template>
+    <template v-else>
+        <p class="has-text-centered my-5">
+            Please <a href="/login">Log In</a> to participate in this discussion.
+        </p>
+    </template>
 </div>
 </template>
 
@@ -42,9 +35,9 @@ export default {
         signedIn() {
             return window.App.signedIn;
         },
-        user() {
-            return window.App.user;
-        },
+        verified() {
+            return window.App.verified;
+        }
     },
 
     methods: {

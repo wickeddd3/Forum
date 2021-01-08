@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/threads', 'ThreadsController@index');
 Route::get('/threads/{channel}', 'ThreadsController@index');

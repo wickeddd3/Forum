@@ -1,24 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
-
-                <div class="card-body">
+<div class="columns is-flex is-justify-content-center mt-5">
+    <div class="column is-5">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Verify Your Email Address
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="content">
                     @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
+                    <article class="message is-success">
+                        <div class="message-body">
+                            A fresh verification link has been sent to your email address.
                         </div>
+                    </article>
                     @endif
-
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                    Before proceeding, please check your email for a verification link.
+                    If you did not receive the email click here to request another.
+                    <form method="POST" action="{{ route('verification.resend') }}" class="is-flex is-justify-content-center mt-3">
                         @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                        <button type="submit" class="button is-primary">
+                            Request another verification link
+                        </button>
                     </form>
                 </div>
             </div>

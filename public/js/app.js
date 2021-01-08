@@ -2199,6 +2199,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['active'],
   data: function data() {
@@ -2246,6 +2250,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['reply'],
   data: function data() {
@@ -2257,6 +2265,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     signedIn: function signedIn() {
       return window.App.signedIn;
+    },
+    verified: function verified() {
+      return window.App.verified;
     },
     endpoint: function endpoint() {
       return '/replies/' + this.reply.id + '/likes';
@@ -2379,13 +2390,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_snackbar__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -2398,8 +2402,8 @@ __webpack_require__.r(__webpack_exports__);
     signedIn: function signedIn() {
       return window.App.signedIn;
     },
-    user: function user() {
-      return window.App.user;
+    verified: function verified() {
+      return window.App.verified;
     }
   },
   methods: {
@@ -2440,8 +2444,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Reply_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Reply.vue */ "./resources/js/components/Reply.vue");
 /* harmony import */ var _NewReply_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewReply.vue */ "./resources/js/components/NewReply.vue");
 /* harmony import */ var _mixins_collection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mixins/collection */ "./resources/js/mixins/collection.js");
-//
-//
 //
 //
 //
@@ -2539,7 +2541,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2561,8 +2562,8 @@ __webpack_require__.r(__webpack_exports__);
       return moment__WEBPACK_IMPORTED_MODULE_1___default()(this.data.created_at).fromNow();
     },
     canUpdate: function canUpdate() {
-      if (window.App.user) {
-        return this.data.user_id == window.App.user.id;
+      if (window.App.user && window.App.verified) {
+        return this.data.user_id == window.App.user;
       }
     }
   },
@@ -2695,10 +2696,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2729,9 +2726,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   computed: {
     signedIn: function signedIn() {
       return window.App.signedIn;
-    },
-    user: function user() {
-      return window.App.user;
     }
   },
   methods: {
@@ -2773,6 +2767,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       })["catch"](function (error) {
         _this.loading = false;
       });
+    },
+    limitContent: function limitContent(content, noOfChar) {
+      if (content.length > noOfChar) {
+        return content.substr(0, noOfChar) + '...';
+      }
+
+      return content;
     }
   }
 });
@@ -60559,7 +60560,7 @@ var render = function() {
       _c("i", { staticClass: "fas fa-thumbs-up" })
     ]),
     _vm._v(" "),
-    _vm.signedIn
+    _vm.signedIn && _vm.verified
       ? _c("span", [
           this.active
             ? _c(
@@ -60572,7 +60573,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n           · Unlike\n        ")]
+                [_vm._v("\n            · Unlike\n        ")]
               )
             : _c(
                 "a",
@@ -60584,7 +60585,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n           · Like\n        ")]
+                [_vm._v("\n            · Like\n        ")]
               )
         ])
       : _vm._e()
@@ -60660,74 +60661,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm.signedIn
-      ? _c("article", { staticClass: "media", attrs: { id: "reply" } }, [
-          _c("figure", { staticClass: "media-left" }, [
-            _c("p", { staticClass: "image is-64x64" }, [
-              _c("img", {
-                attrs: {
-                  src: "/storage/" + _vm.user.profile.avatar,
-                  width: "5%"
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "media-content" }, [
-            _c("div", { staticClass: "field" }, [
-              _c("p", { staticClass: "control" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.message,
-                      expression: "message"
-                    }
-                  ],
-                  staticClass: "textarea is-small",
-                  attrs: { placeholder: "Add a reply..." },
-                  domProps: { value: _vm.message },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+  return _c(
+    "div",
+    [
+      _vm.signedIn
+        ? [
+            _vm.verified
+              ? _c("div", { staticClass: "container my-5" }, [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.message,
+                        expression: "message"
                       }
-                      _vm.message = $event.target.value
+                    ],
+                    staticClass: "textarea is-small",
+                    attrs: { placeholder: "Write your reply here..." },
+                    domProps: { value: _vm.message },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.message = $event.target.value
+                      }
                     }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "field" }, [
-              _c("p", { staticClass: "control" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "button is-primary is-small",
-                    on: { click: _vm.addReply }
-                  },
-                  [_vm._v("Post reply")]
-                )
-              ])
-            ])
-          ])
-        ])
-      : _c("div", { staticClass: "container has-text-centered" }, [
-          _vm._v("\n        Please "),
-          _vm._m(0),
-          _vm._v(" to participate in this discussions\n    ")
-        ])
-  ])
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "is-block has-text-right my-2" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "button is-small is-success ",
+                        on: { click: _vm.addReply }
+                      },
+                      [_vm._v("Post reply")]
+                    )
+                  ])
+                ])
+              : _c("p", { staticClass: "has-text-centered my-5" }, [
+                  _vm._v("\n            You must "),
+                  _c("a", { attrs: { href: "/email/verify" } }, [
+                    _vm._v(" Verify ")
+                  ]),
+                  _vm._v(
+                    " your email to participate in this discussion.\n        "
+                  )
+                ])
+          ]
+        : [_vm._m(0)]
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "/login" } }, [_c("b", [_vm._v("Log In")])])
+    return _c("p", { staticClass: "has-text-centered my-5" }, [
+      _vm._v("\n            Please "),
+      _c("a", { attrs: { href: "/login" } }, [_vm._v("Log In")]),
+      _vm._v(" to participate in this discussion.\n        ")
+    ])
   }
 ]
 render._withStripped = true
@@ -60755,46 +60753,41 @@ var render = function() {
     "div",
     [
       _vm.items.length > 0
-        ? _c(
-            "div",
-            _vm._l(_vm.items, function(reply, index) {
-              return _c(
-                "div",
-                { key: reply.id },
-                [
-                  _c("reply", {
-                    attrs: { data: reply },
-                    on: {
-                      deleted: function($event) {
-                        return _vm.remove(index)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("br")
-                ],
-                1
-              )
-            }),
-            0
-          )
-        : _c("div", [
-            _c(
+        ? _vm._l(_vm.items, function(reply, index) {
+            return _c(
               "div",
-              {
-                staticClass:
-                  "container has-text-centered has-text-weight-semibold pb-5"
-              },
-              [_vm._v("\n            No replies yet.\n        ")]
+              { key: reply.id },
+              [
+                _c("reply", {
+                  attrs: { data: reply },
+                  on: {
+                    deleted: function($event) {
+                      return _vm.remove(index)
+                    }
+                  }
+                })
+              ],
+              1
             )
-          ]),
+          })
+        : [_vm._m(0)],
       _vm._v(" "),
       _c("new-reply", { on: { created: _vm.add } })
     ],
-    1
+    2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "has-text-centered my-5" }, [
+      _c("i", { staticClass: "fas fa-comments" }),
+      _vm._v(" No replies\n        ")
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -60816,81 +60809,87 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("article", { staticClass: "media", attrs: { id: "reply-" + _vm.id } }, [
-      _c("figure", { staticClass: "media-left" }, [
-        _c("p", { staticClass: "image is-48x48" }, [
+  return _c(
+    "article",
+    { staticClass: "media my-2", attrs: { id: "reply-" + _vm.id } },
+    [
+      _c("div", { staticClass: "media-left" }, [
+        _c("figure", { staticClass: "image is-48x48" }, [
           _c("img", {
-            attrs: {
-              src: "/storage/" + _vm.data.owner.profile.avatar,
-              width: "5%"
-            }
+            staticClass: "is-rounded",
+            attrs: { src: "/storage/" + _vm.data.owner.profile.avatar }
           })
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "media-content" }, [
-        _c("strong", [_vm._v(_vm._s(_vm.data.owner.username))]),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _vm.editing
-          ? _c("div", [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.message,
-                    expression: "message"
-                  }
-                ],
-                staticClass: "textarea is-small mb-2",
-                domProps: { value: _vm.message },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+        _c("div", { staticClass: "content" }, [
+          _c("h6", { staticClass: "subtitle is-6 is-inline" }, [
+            _vm._v(_vm._s(_vm.data.owner.name))
+          ]),
+          _vm._v(" "),
+          _c("small", [
+            _vm._v(" " + _vm._s("@" + _vm.data.owner.username) + " ")
+          ]),
+          _vm._v(" "),
+          _vm.editing
+            ? _c("div", [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.message,
+                      expression: "message"
                     }
-                    _vm.message = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span", [
-                _c(
-                  "button",
-                  { staticClass: "button is-small", on: { click: _vm.update } },
-                  [_vm._v("Update")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "button is-small",
-                    on: {
-                      click: function($event) {
-                        _vm.editing = false
+                  ],
+                  staticClass: "textarea is-small my-2",
+                  domProps: { value: _vm.message },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
+                      _vm.message = $event.target.value
                     }
-                  },
-                  [_vm._v("Cancel")]
-                )
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button is-small is-success",
+                      on: { click: _vm.update }
+                    },
+                    [_vm._v("Update")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button is-small is-warning",
+                      on: {
+                        click: function($event) {
+                          _vm.editing = false
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ])
               ])
-            ])
-          : _c("div", {
-              staticClass: "content",
-              domProps: { textContent: _vm._s(_vm.message) }
-            }),
-        _vm._v(" "),
-        _c(
-          "small",
-          [
-            _c("like", { attrs: { reply: _vm.data } }),
-            _vm._v("\n                · " + _vm._s(_vm.ago) + "\n            ")
-          ],
-          1
-        )
+            : _c("div", { domProps: { textContent: _vm._s(_vm.message) } }),
+          _vm._v(" "),
+          _c(
+            "small",
+            [
+              _c("like", { attrs: { reply: _vm.data } }),
+              _vm._v("· " + _vm._s(_vm.ago) + "\n            ")
+            ],
+            1
+          )
+        ])
       ]),
       _vm._v(" "),
       _vm.canUpdate
@@ -60917,8 +60916,8 @@ var render = function() {
             ])
           ])
         : _vm._e()
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -60964,7 +60963,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "button is-small is-primary",
+                  staticClass: "button is-small is-info",
                   attrs: { slot: "trigger", type: "button" },
                   slot: "trigger"
                 },
@@ -61053,7 +61052,7 @@ var render = function() {
                         staticClass: "has-text-dark",
                         attrs: { href: thread.path }
                       },
-                      [_vm._v(_vm._s(thread.title))]
+                      [_vm._v(_vm._s(_vm.limitContent(thread.title, 70)))]
                     )
                   ]),
                   _vm._v(" "),
@@ -61070,19 +61069,16 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "media-content" }, [
                       _c("div", { staticClass: "content" }, [
-                        _c("p", [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "has-text-dark",
-                              attrs: { href: "" }
-                            },
-                            [_vm._v(_vm._s("@" + thread.creator.username))]
-                          ),
+                        _c("p", { staticClass: "has-text-dark" }, [
                           _vm._v(
-                            " " +
-                              _vm._s(_vm.created(thread.created_at)) +
-                              "  \n                            "
+                            "\n                                " +
+                              _vm._s(
+                                "@" +
+                                  thread.creator.username +
+                                  " " +
+                                  _vm.created(thread.created_at)
+                              ) +
+                              "\n                            "
                           )
                         ])
                       ])
@@ -61115,7 +61111,7 @@ var render = function() {
           2
         )
       : _c("div", { staticClass: "container has-text-centered" }, [
-          _c("h6", [_vm._v("No discussions yet.")])
+          _c("h6", [_vm._v("No discussions found")])
         ])
   ])
 }

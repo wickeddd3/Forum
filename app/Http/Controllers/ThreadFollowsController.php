@@ -7,6 +7,11 @@ use App\Models\Thread;
 
 class ThreadFollowsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     public function index(Channel $channel, Thread $thread)
     {
         $thread->follow();

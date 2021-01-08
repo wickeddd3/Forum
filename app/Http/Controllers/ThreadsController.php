@@ -14,7 +14,7 @@ class ThreadsController extends Controller
 
     public function __construct(ThreadRepositoryInterface $threadRepository)
     {
-        $this->middleware('auth')->except('index', 'show');
+        $this->middleware(['auth', 'verified'])->except('index', 'show');
 
         $this->threadRepository = $threadRepository;
     }

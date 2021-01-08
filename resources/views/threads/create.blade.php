@@ -51,7 +51,7 @@
                 @enderror
             </div>
         </div>
-        <button type="submit" class="button is-primary is-small">Post</button>
+        <button type="submit" class="button is-success is-small">Post</button>
     </form>
 </div>
 @endsection

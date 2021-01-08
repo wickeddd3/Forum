@@ -1,12 +1,16 @@
 <template>
-    <span>
-        <a class="has-text-dark" v-if="this.activeButton" @click="follow">
-            Unfollow
-        </a>
-        <a class="has-text-dark" v-else @click="follow">
-            Follow
-        </a>
-    </span>
+<span>
+    <a class="has-text-dark"
+        v-if="this.activeButton"
+        @click="follow">
+        Unfollow
+    </a>
+    <a class="has-text-dark"
+        @click="follow"
+        v-else>
+        Follow
+    </a>
+</span>
 </template>
 
 <script>
