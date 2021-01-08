@@ -9,18 +9,16 @@
                 <article class="media">
                     <div class="media-left">
                         <figure class="image is-64x64">
-                            <img src="{{ asset('/storage/'.$profile->profile->avatar) }}" class="is-rounded" alt="Image">
+                            <img src="{{ asset('/storage/'.$profile->avatar) }}" class="is-rounded" alt="Image">
                         </figure>
                     </div>
                     <div class="media-content">
                         <div class="content">
-                            <strong class="has-text-white">{{ $profile->name }}</strong>
+                            <h5 class="title is-5 is-inline">{{ $profile->name }}</h5>
                             <p>
                                 <small class="has-text-weight-bold">{{ '@'.$profile->username }}</small>
                                 <small>joined {{ $profile->created_at->diffForHumans() }}</small>
-                                <br>
                             </p>
-                            {{ $profile->profile->about }}
                         </div>
                     </div>
                 </article>

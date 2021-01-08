@@ -22,7 +22,7 @@
                     If you did not receive the email click here to request another.
                     <form method="POST" action="{{ route('verification.resend') }}" class="is-flex is-justify-content-center mt-3">
                         @csrf
-                        <button type="submit" class="button is-primary">
+                        <button type="submit" class="button is-success">
                             Request another verification link
                         </button>
                     </form>

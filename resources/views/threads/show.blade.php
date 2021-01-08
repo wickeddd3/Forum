@@ -10,7 +10,7 @@
     <article class="media">
         <div class="media-left">
             <figure class="image is-64x64">
-                <img class="is-rounded" src="{{ asset('/storage/'.$thread->creator->profile->avatar) }}">
+                <img class="is-rounded" src="{{ asset('/storage/'.$thread->creator->avatar) }}">
             </figure>
         </div>
         <div class="media-content">

@@ -2967,19 +2967,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['profile'],
@@ -2991,7 +2978,6 @@ __webpack_require__.r(__webpack_exports__);
         username: '',
         email: '',
         password: '',
-        about: '',
         avatar: null
       }
     };
@@ -3002,7 +2988,6 @@ __webpack_require__.r(__webpack_exports__);
       this.user.name = this.profile.name;
       this.user.username = this.profile.username;
       this.user.email = this.profile.email;
-      this.user.about = this.profile.profile.about;
     }
   },
   methods: {
@@ -61060,9 +61045,7 @@ var render = function() {
                     _c("div", { staticClass: "media-left" }, [
                       _c("p", { staticClass: "image is-32x32" }, [
                         _c("img", {
-                          attrs: {
-                            src: "/storage/" + thread.creator.profile.avatar
-                          }
+                          attrs: { src: "/storage/" + thread.creator.avatar }
                         })
                       ])
                     ]),
@@ -61422,37 +61405,6 @@ var render = function() {
         _c("div", { staticClass: "field is-horizontal" }, [
           _vm._m(4),
           _vm._v(" "),
-          _c("div", { staticClass: "field-body" }, [
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.about,
-                      expression: "user.about"
-                    }
-                  ],
-                  staticClass: "textarea is-small",
-                  domProps: { value: _vm.user.about },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.user, "about", $event.target.value)
-                    }
-                  }
-                })
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field is-horizontal" }, [
-          _vm._m(5),
-          _vm._v(" "),
           _c(
             "div",
             { staticClass: "field-body" },
@@ -61478,7 +61430,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(6)
+        _vm._m(5)
       ]
     )
   ])
@@ -61514,14 +61466,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "field-label is-normal" }, [
       _c("label", { staticClass: "label" }, [_vm._v("Password")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field-label is-normal" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Bio")])
     ])
   },
   function() {

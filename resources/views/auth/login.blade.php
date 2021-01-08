@@ -48,7 +48,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button class="button is-primary is-fullwidth" type="submit">Login</button>
+                        <button class="button is-success is-fullwidth" type="submit">Login</button>
                     </form>
                 </div>
                 <footer class="card-footer">

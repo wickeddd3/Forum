@@ -56,19 +56,6 @@
 
         <div class="field is-horizontal">
             <div class="field-label is-normal">
-                <label class="label">Bio</label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control">
-                        <textarea class="textarea is-small" v-model="user.about"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
                 <label class="label">Avatar</label>
             </div>
             <div class="field-body">
@@ -115,7 +102,6 @@ export default {
                 username: '',
                 email: '',
                 password: '',
-                about: '',
                 avatar: null
             }
         }
@@ -127,7 +113,6 @@ export default {
             this.user.name = this.profile.name;
             this.user.username = this.profile.username;
             this.user.email = this.profile.email;
-            this.user.about = this.profile.profile.about;
         }
     },
 

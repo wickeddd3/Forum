@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="control">
-                            <button type="submit" class="button is-link is-fullwidth has-text-weight-medium is-medium">Create account</button>
+                            <button type="submit" class="button is-info is-fullwidth has-text-weight-medium is-medium">Create account</button>
                         </div>
                     </form>
                 </div>

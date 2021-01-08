@@ -43,7 +43,7 @@
                 <div class="media">
                     <div class="media-left">
                         <p class="image is-32x32">
-                            <img :src="'/storage/'+thread.creator.profile.avatar">
+                            <img :src="'/storage/'+thread.creator.avatar">
                         </p>
                     </div>
                     <div class="media-content">

@@ -37,16 +37,12 @@ class ProfileRepository implements ProfileRepositoryInterface
             if($user->profile->avatar != 'uploads/avatars/default_avatar.png'){
                 $user->deleteAvatar();
             }
-            $user->profile->avatar = 'uploads/avatars/'.$new_name;
-            $user->push();
+            $user->avatar = 'uploads/avatars/'.$new_name;
         }
 
         if($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-
-        $user->profile->about = $request->about;
-        $user->push();
 
         $user->name = $request->name;
         $user->username = $request->username;

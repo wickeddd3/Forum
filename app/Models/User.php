@@ -37,10 +37,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = [
-        'profile'
-    ];
-
     public function threads()
     {
         return $this->hasMany(Thread::class);
@@ -53,7 +49,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function deleteAvatar()
     {
-        $imagePath = public_path().'/storage/'.$this->profile->avatar;
+        $imagePath = public_path().'/storage/'.$this->avatar;
         unlink($imagePath);
     }
 

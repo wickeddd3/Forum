@@ -77,7 +77,7 @@
                                         autocomplete="new-password">
                             </div>
                         </div>
-                        <button class="button is-primary is-fullwidth" type="submit">Register</button>
+                        <button class="button is-success is-fullwidth" type="submit">Register</button>
                     </form>
                 </div>
             </div>
