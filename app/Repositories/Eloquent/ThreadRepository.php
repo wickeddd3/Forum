@@ -63,4 +63,25 @@ class ThreadRepository implements ThreadRepositoryInterface
             'updated_at' => Carbon::now()
         ]);
     }
+
+    public function markAsBestReply($thread, $request)
+    {
+        $thread->update([
+            'best_reply_id' => $request->reply_id
+        ]);
+    }
+
+    public function closeThread($thread)
+    {
+        $thread->update([
+            'closed_at' => Carbon::now()
+        ]);
+    }
+
+    public function openThread($thread)
+    {
+        $thread->update([
+            'closed_at' => null
+        ]);
+    }
 }

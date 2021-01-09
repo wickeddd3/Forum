@@ -1,14 +1,28 @@
 <template>
-<article class="media my-2" :id="'reply-'+id">
+<article class="media my-2" :class="{'has-background-success-light p-5': best_reply_id == data.id}" :id="'reply-'+id">
     <div class="media-left">
         <figure class="image is-48x48">
-            <img class="is-rounded" :src="'/storage/'+data.owner.profile.avatar">
+            <img class="is-rounded" :src="'/storage/'+data.owner.avatar">
         </figure>
     </div>
     <div class="media-content">
         <div class="content">
-            <h6 class="subtitle is-6 is-inline">{{ data.owner.name }}</h6>
-            <small> {{ `@${data.owner.username}` }} </small>
+            <div class="is-flex is-justify-content-space-between">
+                <span>
+                    <h6 class="subtitle is-6 is-inline">{{ data.owner.name }}</h6>
+                    <small> {{ `@${data.owner.username}` }} </small>
+                </span>
+                <span>
+                    <span class="is-size-7" v-if="canUpdate">
+                        <a class="has-text-dark mr-2" @click="editing = true">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="has-text-dark" @click="destroy">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </span>
+                </span>
+            </div>
             <div v-if="editing">
                 <textarea class="textarea is-small my-2" v-model="message"></textarea>
                 <span>
@@ -17,20 +31,20 @@
                 </span>
             </div>
             <div v-text="message" v-else></div>
-            <small>
-                <like :reply="data"></like>· {{ ago }}
-            </small>
+            <div class="is-flex is-justify-content-space-between is-flex-wrap-wrap">
+                <small>
+                    <like :reply="data"></like>· {{ ago }}
+                </small>
+                <small>
+                    <span v-if="best_reply_id == data.id">
+                        <i class="fas fa-award"></i> Marked as Best Reply
+                    </span>
+                    <span v-else>
+                        <a v-if="canMarkReplyAsBestReply" @click="markAsBestReply">Mark as Best Reply</a>
+                    </span>
+                </small>
+            </div>
         </div>
-    </div>
-    <div v-if="canUpdate" class="media-right">
-        <span  class="is-size-7">
-            <a class="has-text-dark mr-2" @click="editing = true">
-                <i class="fas fa-edit"></i>
-            </a>
-            <a class="has-text-dark" @click="destroy">
-                <i class="fas fa-trash"></i>
-            </a>
-        </span>
     </div>
 </article>
 </template>
@@ -41,7 +55,11 @@ import moment from 'moment'
 import snackbar from './../mixins/snackbar'
 
 export default {
-    props: ['data'],
+    props: [
+        'data',
+        'best_reply_id',
+        'thread_user_id'
+    ],
 
     mixins:[snackbar],
 
@@ -65,6 +83,9 @@ export default {
             if(window.App.user && window.App.verified){
                 return this.data.user_id == window.App.user;
             }
+        },
+        canMarkReplyAsBestReply() {
+            return (this.thread_user_id === window.App.user) ? true : false;
         }
     },
 
@@ -90,6 +111,15 @@ export default {
                 })
                 .catch((error) => {
                     this.snackbar("Error occurred while deleting your reply");
+                });
+        },
+        markAsBestReply() {
+            axios.put(`${location.pathname}/bestreply`, {reply_id: this.data.id})
+                .then(response => {
+                    this.snackbar("Reply has been mark as best reply.")
+                })
+                .catch((error) => {
+                    this.snackbar("Error occurred while marking reply as best reply");
                 });
         }
     }

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ThreadRepositoryInterface;
 use App\Http\Requests\ThreadStoreRequest;
 use App\Http\Requests\ThreadUpdateRequest;
+use Illuminate\Http\Request;
 use App\Models\Thread;
 use App\Models\Channel;
-use App\Repositories\ThreadRepositoryInterface;
+
 
 class ThreadsController extends Controller
 {
@@ -69,6 +71,27 @@ class ThreadsController extends Controller
         $this->threadRepository->update($thread, $request);
 
         return redirect()->back();
+    }
+
+    public function markAsBestReply(Channel $channel, Thread $thread, Request $request)
+    {
+        $this->authorize('update', $thread);
+
+        $this->threadRepository->markAsBestReply($thread, $request);
+    }
+
+    public function closeThread(Channel $channel, Thread $thread)
+    {
+        $this->authorize('update', $thread);
+
+        $this->threadRepository->closeThread($thread);
+    }
+
+    public function openThread(Channel $channel, Thread $thread)
+    {
+        $this->authorize('update', $thread);
+
+        $this->threadRepository->openThread($thread);
     }
 
 }

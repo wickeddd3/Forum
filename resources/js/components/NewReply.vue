@@ -2,10 +2,20 @@
 <div>
     <template v-if="signedIn">
         <div class="container my-5" v-if="verified">
-            <textarea class="textarea is-small" v-model="message" placeholder="Write your reply here..."></textarea>
-            <p class="is-block has-text-right my-2">
-                <button class="button is-small is-success " @click="addReply">Post reply</button>
-            </p>
+            <template v-if="closed">
+                <h6 class="subtitle is-6 has-text-centered my-5">
+                    <span class="is-size-3 is-block my-2">
+                        <i class="fas fa-comment-slash"></i>
+                    </span>
+                    Thread is closed, you can no longer post a reply.
+                </h6>
+            </template>
+            <template v-else>
+                <textarea class="textarea is-small" id="reply" v-model="message" placeholder="Write your reply here..."></textarea>
+                <p class="is-block has-text-right my-2">
+                    <button class="button is-small is-success " @click="addReply">Post reply</button>
+                </p>
+            </template>
         </div>
         <p class="has-text-centered my-5" v-else>
             You must <a href="/email/verify">&nbsp;Verify&nbsp;</a> your email to participate in this discussion.
@@ -23,6 +33,8 @@
 import snackbar from './../mixins/snackbar'
 
 export default {
+    props:['closed'],
+
     mixins:[snackbar],
 
     data() {

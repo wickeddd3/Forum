@@ -27,20 +27,24 @@ Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
 Route::get('/threads/{channel}/{thread}/edit', 'ThreadsController@edit');
 Route::put('/threads/{channel}/{thread}/update', 'ThreadsController@update');
 
+Route::put('/threads/{channel}/{thread}/bestreply', 'ThreadsController@markAsBestReply');
+Route::put('/threads/{channel}/{thread}/closethread', 'ThreadsController@closeThread');
+Route::put('/threads/{channel}/{thread}/openthread', 'ThreadsController@openThread');
+
+Route::post('/threads/{channel}/{thread}/follows', 'ThreadFollowsController@index')->middleware('auth');
+Route::delete('/threads/{channel}/{thread}/follows', 'ThreadFollowsController@destroy')->middleware('auth');
+
 Route::get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
 Route::patch('/replies/{reply}', 'RepliesController@update');
 Route::delete('/replies/{reply}', 'RepliesController@destroy');
 
+Route::post('/replies/{reply}/likes', 'LikesController@store');
+Route::delete('/replies/{reply}/likes', 'LikesController@destroy');
+
 Route::post('/profile', 'ProfilesController@store')->name('profile.store');
 Route::get('/{username}/profile', 'ProfilesController@index')->name('profile.index');
 Route::post('/{username}/profile', 'ProfilesController@profile')->name('profile');
-
-Route::post('/threads/{channel}/{thread}/follows', 'ThreadFollowsController@index')->middleware('auth');
-Route::delete('/threads/{channel}/{thread}/follows', 'ThreadFollowsController@destroy')->middleware('auth');
-
-Route::post('/replies/{reply}/likes', 'LikesController@store');
-Route::delete('/replies/{reply}/likes', 'LikesController@destroy');
 
 Route::get('/{username}/notifications', 'UserNotificationsController@notifications');
 Route::get('/profiles/{user}/notifications', 'UserNotificationsController@index');

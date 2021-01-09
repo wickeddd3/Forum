@@ -8,6 +8,16 @@ use App\Repositories\ReplyRepositoryInterface;
 
 class ReplyRepository implements ReplyRepositoryInterface
 {
+    public function index($thread)
+    {
+        $bestReply = $thread->replies()->with('owner')->where('id', $thread->best_reply_id)->get()->toArray();
+        $otherReplies = $thread->replies()->with('owner')->where('id', '!=', $thread->best_reply_id)->get()->toArray();
+
+        $replies = array_merge($bestReply, $otherReplies);
+
+        return $replies;
+    }
+
     public function create($thread, $request)
     {
         return $thread->addReply([

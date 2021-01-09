@@ -37,7 +37,7 @@ export default {
 
     computed: {
         shouldLoadMore() {
-            return this.page != this.last_page && this.total > 8;
+            return this.page != this.last_page && this.total > 10;
         }
     },
 

@@ -23,7 +23,7 @@ class RepliesController extends Controller
 
     public function index(Channel $channel, Thread $thread)
     {
-        return $thread->replies()->with('owner.profile')->get();
+        return $this->replyRepository->index($thread);
     }
 
     public function store(Channel $channel, Thread $thread, ReplyStoreRequest $request)
@@ -31,7 +31,7 @@ class RepliesController extends Controller
         $reply = $this->replyRepository->create($thread, $request);
 
         if(request()->expectsJson()) {
-            return $reply->load('owner.profile');
+            return $reply->load('owner');
         }
     }
 

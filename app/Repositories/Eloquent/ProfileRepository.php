@@ -34,7 +34,7 @@ class ProfileRepository implements ProfileRepositoryInterface
             $avatar = $request->avatar;
             $new_name = time().'.' . explode('/', explode(':', substr($avatar, 0, strpos($avatar, ';')))[1])[1];
             \Image::make($avatar)->save(public_path('/storage/uploads/avatars/').$new_name);
-            if($user->profile->avatar != 'uploads/avatars/default_avatar.png'){
+            if($user->avatar != 'uploads/avatars/default_avatar.png'){
                 $user->deleteAvatar();
             }
             $user->avatar = 'uploads/avatars/'.$new_name;

@@ -4,7 +4,7 @@
         <article class="media mb-1">
             <figure class="media-left">
                 <p class="image is-48x48">
-                    <img :src="'/storage/'+reply.owner.profile.avatar" class="is-rounded">
+                    <img :src="'/storage/'+reply.owner.avatar" class="is-rounded">
                 </p>
             </figure>
             <div class="media-content">

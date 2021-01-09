@@ -2335,7 +2335,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     shouldLoadMore: function shouldLoadMore() {
-      return this.page != this.last_page && this.total > 8;
+      return this.page != this.last_page && this.total > 10;
     }
   },
   methods: {
@@ -2390,8 +2390,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['closed'],
   mixins: [_mixins_snackbar__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {
@@ -2460,10 +2471,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['best_reply_id', 'thread_user_id', 'closed'],
   components: {
     Reply: _Reply_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     NewReply: _NewReply_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -2541,11 +2562,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data'],
+  props: ['data', 'best_reply_id', 'thread_user_id'],
   mixins: [_mixins_snackbar__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
     Like: _Like_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -2565,6 +2600,9 @@ __webpack_require__.r(__webpack_exports__);
       if (window.App.user && window.App.verified) {
         return this.data.user_id == window.App.user;
       }
+    },
+    canMarkReplyAsBestReply: function canMarkReplyAsBestReply() {
+      return this.thread_user_id === window.App.user ? true : false;
     }
   },
   methods: {
@@ -2592,6 +2630,17 @@ __webpack_require__.r(__webpack_exports__);
         _this2.snackbar("Your reply has been deleted.");
       })["catch"](function (error) {
         _this2.snackbar("Error occurred while deleting your reply");
+      });
+    },
+    markAsBestReply: function markAsBestReply() {
+      var _this3 = this;
+
+      axios.put("".concat(location.pathname, "/bestreply"), {
+        reply_id: this.data.id
+      }).then(function (response) {
+        _this3.snackbar("Reply has been mark as best reply.");
+      })["catch"](function (error) {
+        _this3.snackbar("Error occurred while marking reply as best reply");
       });
     }
   }
@@ -3168,10 +3217,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Replies_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Replies.vue */ "./resources/js/components/Replies.vue");
 /* harmony import */ var _components_FollowButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/FollowButton.vue */ "./resources/js/components/FollowButton.vue");
+/* harmony import */ var _mixins_snackbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../mixins/snackbar */ "./resources/js/mixins/snackbar.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['initialRepliesCount', 'initialFollowsCount'],
+  mixins: [_mixins_snackbar__WEBPACK_IMPORTED_MODULE_2__["default"]],
   components: {
     Replies: _components_Replies_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     FollowButton: _components_FollowButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -3181,6 +3233,26 @@ __webpack_require__.r(__webpack_exports__);
       repliesCount: this.initialRepliesCount,
       followsCount: this.initialFollowsCount
     };
+  },
+  methods: {
+    closeThread: function closeThread() {
+      var _this = this;
+
+      axios.put("".concat(location.pathname, "/closethread")).then(function (response) {
+        _this.snackbar("Thread has been closed");
+      })["catch"](function (error) {
+        _this.snackbar("Error occurred while closing thread");
+      });
+    },
+    openThread: function openThread() {
+      var _this2 = this;
+
+      axios.put("".concat(location.pathname, "/openthread")).then(function (response) {
+        _this2.snackbar("Thread has been opened");
+      })["catch"](function (error) {
+        _this2.snackbar("Error occurred while opening thread");
+      });
+    }
   }
 });
 
@@ -60652,40 +60724,56 @@ var render = function() {
       _vm.signedIn
         ? [
             _vm.verified
-              ? _c("div", { staticClass: "container my-5" }, [
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.message,
-                        expression: "message"
-                      }
-                    ],
-                    staticClass: "textarea is-small",
-                    attrs: { placeholder: "Write your reply here..." },
-                    domProps: { value: _vm.message },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.message = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "is-block has-text-right my-2" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "button is-small is-success ",
-                        on: { click: _vm.addReply }
-                      },
-                      [_vm._v("Post reply")]
-                    )
-                  ])
-                ])
+              ? _c(
+                  "div",
+                  { staticClass: "container my-5" },
+                  [
+                    _vm.closed
+                      ? [_vm._m(0)]
+                      : [
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.message,
+                                expression: "message"
+                              }
+                            ],
+                            staticClass: "textarea is-small",
+                            attrs: {
+                              id: "reply",
+                              placeholder: "Write your reply here..."
+                            },
+                            domProps: { value: _vm.message },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.message = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            { staticClass: "is-block has-text-right my-2" },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "button is-small is-success ",
+                                  on: { click: _vm.addReply }
+                                },
+                                [_vm._v("Post reply")]
+                              )
+                            ]
+                          )
+                        ]
+                  ],
+                  2
+                )
               : _c("p", { staticClass: "has-text-centered my-5" }, [
                   _vm._v("\n            You must "),
                   _c("a", { attrs: { href: "/email/verify" } }, [
@@ -60696,12 +60784,25 @@ var render = function() {
                   )
                 ])
           ]
-        : [_vm._m(0)]
+        : [_vm._m(1)]
     ],
     2
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h6", { staticClass: "subtitle is-6 has-text-centered my-5" }, [
+      _c("span", { staticClass: "is-size-3 is-block my-2" }, [
+        _c("i", { staticClass: "fas fa-comment-slash" })
+      ]),
+      _vm._v(
+        "\n                    Thread is closed, you can no longer post a reply.\n                "
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -60744,7 +60845,11 @@ var render = function() {
               { key: reply.id },
               [
                 _c("reply", {
-                  attrs: { data: reply },
+                  attrs: {
+                    data: reply,
+                    thread_user_id: _vm.thread_user_id,
+                    best_reply_id: _vm.best_reply_id
+                  },
                   on: {
                     deleted: function($event) {
                       return _vm.remove(index)
@@ -60757,7 +60862,10 @@ var render = function() {
           })
         : [_vm._m(0)],
       _vm._v(" "),
-      _c("new-reply", { on: { created: _vm.add } })
+      _c("new-reply", {
+        attrs: { closed: _vm.closed },
+        on: { created: _vm.add }
+      })
     ],
     2
   )
@@ -60767,9 +60875,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "has-text-centered my-5" }, [
-      _c("i", { staticClass: "fas fa-comments" }),
-      _vm._v(" No replies\n        ")
+    return _c("h6", { staticClass: "subtitle is-6 has-text-centered my-5" }, [
+      _c("span", { staticClass: "is-size-3 is-block my-2" }, [
+        _c("i", { staticClass: "fas fa-comments" })
+      ]),
+      _vm._v("\n            No replies\n        ")
     ])
   }
 ]
@@ -60796,26 +60906,68 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "article",
-    { staticClass: "media my-2", attrs: { id: "reply-" + _vm.id } },
+    {
+      staticClass: "media my-2",
+      class: {
+        "has-background-success-light p-5": _vm.best_reply_id == _vm.data.id
+      },
+      attrs: { id: "reply-" + _vm.id }
+    },
     [
       _c("div", { staticClass: "media-left" }, [
         _c("figure", { staticClass: "image is-48x48" }, [
           _c("img", {
             staticClass: "is-rounded",
-            attrs: { src: "/storage/" + _vm.data.owner.profile.avatar }
+            attrs: { src: "/storage/" + _vm.data.owner.avatar }
           })
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "media-content" }, [
         _c("div", { staticClass: "content" }, [
-          _c("h6", { staticClass: "subtitle is-6 is-inline" }, [
-            _vm._v(_vm._s(_vm.data.owner.name))
-          ]),
-          _vm._v(" "),
-          _c("small", [
-            _vm._v(" " + _vm._s("@" + _vm.data.owner.username) + " ")
-          ]),
+          _c(
+            "div",
+            { staticClass: "is-flex is-justify-content-space-between" },
+            [
+              _c("span", [
+                _c("h6", { staticClass: "subtitle is-6 is-inline" }, [
+                  _vm._v(_vm._s(_vm.data.owner.name))
+                ]),
+                _vm._v(" "),
+                _c("small", [
+                  _vm._v(" " + _vm._s("@" + _vm.data.owner.username) + " ")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("span", [
+                _vm.canUpdate
+                  ? _c("span", { staticClass: "is-size-7" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "has-text-dark mr-2",
+                          on: {
+                            click: function($event) {
+                              _vm.editing = true
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-edit" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "has-text-dark",
+                          on: { click: _vm.destroy }
+                        },
+                        [_c("i", { staticClass: "fas fa-trash" })]
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ]
+          ),
           _vm._v(" "),
           _vm.editing
             ? _c("div", [
@@ -60867,40 +61019,39 @@ var render = function() {
             : _c("div", { domProps: { textContent: _vm._s(_vm.message) } }),
           _vm._v(" "),
           _c(
-            "small",
+            "div",
+            {
+              staticClass:
+                "is-flex is-justify-content-space-between is-flex-wrap-wrap"
+            },
             [
-              _c("like", { attrs: { reply: _vm.data } }),
-              _vm._v("· " + _vm._s(_vm.ago) + "\n            ")
-            ],
-            1
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm.canUpdate
-        ? _c("div", { staticClass: "media-right" }, [
-            _c("span", { staticClass: "is-size-7" }, [
               _c(
-                "a",
-                {
-                  staticClass: "has-text-dark mr-2",
-                  on: {
-                    click: function($event) {
-                      _vm.editing = true
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fas fa-edit" })]
+                "small",
+                [
+                  _c("like", { attrs: { reply: _vm.data } }),
+                  _vm._v("· " + _vm._s(_vm.ago) + "\n                ")
+                ],
+                1
               ),
               _vm._v(" "),
-              _c(
-                "a",
-                { staticClass: "has-text-dark", on: { click: _vm.destroy } },
-                [_c("i", { staticClass: "fas fa-trash" })]
-              )
-            ])
-          ])
-        : _vm._e()
+              _c("small", [
+                _vm.best_reply_id == _vm.data.id
+                  ? _c("span", [
+                      _c("i", { staticClass: "fas fa-award" }),
+                      _vm._v(" Marked as Best Reply\n                    ")
+                    ])
+                  : _c("span", [
+                      _vm.canMarkReplyAsBestReply
+                        ? _c("a", { on: { click: _vm.markAsBestReply } }, [
+                            _vm._v("Mark as Best Reply")
+                          ])
+                        : _vm._e()
+                    ])
+              ])
+            ]
+          )
+        ])
+      ])
     ]
   )
 }
@@ -61201,7 +61352,7 @@ var render = function() {
             _c("p", { staticClass: "image is-48x48" }, [
               _c("img", {
                 staticClass: "is-rounded",
-                attrs: { src: "/storage/" + thread.creator.profile.avatar }
+                attrs: { src: "/storage/" + thread.creator.avatar }
               })
             ])
           ]),
@@ -61528,7 +61679,7 @@ var render = function() {
             _c("p", { staticClass: "image is-48x48" }, [
               _c("img", {
                 staticClass: "is-rounded",
-                attrs: { src: "/storage/" + reply.owner.profile.avatar }
+                attrs: { src: "/storage/" + reply.owner.avatar }
               })
             ])
           ]),
