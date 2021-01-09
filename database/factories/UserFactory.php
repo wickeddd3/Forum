@@ -28,7 +28,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'password' => Hash::make('password'),
         'avatar' => 'uploads/avatars/default_avatar.png',
-        'remember_token' => Str::random(10),
+        // 'remember_token' => Str::random(10),
         'created_at' => Carbon::now()
     ];
 });

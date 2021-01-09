@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Forum
+@endsection
+
 @section('content')
 <section class="hero">
     <div class="hero-body">

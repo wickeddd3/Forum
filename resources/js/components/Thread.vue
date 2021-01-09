@@ -43,7 +43,7 @@
                 <div class="media">
                     <div class="media-left">
                         <p class="image is-32x32">
-                            <img :src="'/storage/'+thread.creator.avatar">
+                            <img class="is-rounded" :src="'/storage/'+thread.creator.avatar">
                         </p>
                     </div>
                     <div class="media-content">

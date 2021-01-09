@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Edit Thread
+@endsection
+
 @section('content')
 <div class="container mt-5 mb-5">
     <h1 class="is-size-5 has-text-weight-bold pb-2">Edit Thread</h1>

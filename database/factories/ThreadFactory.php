@@ -12,7 +12,7 @@ $factory->define(Thread::class, function (Faker $faker) {
     $title = $faker->sentence($nbWords = 6, $variableNbWords = true);
     return [
         'title' => $title,
-        'content' => $faker->paragraph,
+        'content' => $faker->paragraph($nbSentences = 10),
         'user_id' => function() {
             return User::all()->random();
         },

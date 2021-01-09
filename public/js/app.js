@@ -61196,6 +61196,7 @@ var render = function() {
                     _c("div", { staticClass: "media-left" }, [
                       _c("p", { staticClass: "image is-32x32" }, [
                         _c("img", {
+                          staticClass: "is-rounded",
                           attrs: { src: "/storage/" + thread.creator.avatar }
                         })
                       ])

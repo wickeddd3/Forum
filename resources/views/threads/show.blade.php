@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+{{ $thread->title }}
+@endsection
+
 @section('content')
 <thread-view initial-replies-count="{{ $thread->replies_count }}" initial-follows-count="{{ $thread->followers()->count() }}" inline-template>
 <div class="container my-5">

@@ -1,18 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Forum
-@endsection
-
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/forum.css') }}" />
-<style>
-.sticky {
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    top: 0;
-}
-</style>
+Forum Threads
 @endsection
 
 @section('content')
@@ -20,7 +9,7 @@ Forum
 <div class="container">
     <div class="columns">
         <div class="column is-3">
-            <div id="sidebar">
+            <div id="sidebar" class="py-3">
                 <a class="button is-success is-block" href="/thread/create">Start Discussion</a>
                 <a class="button is-info is-block mt-3" href="/threads">All Discussions</a>
                 <aside class="menu mt-5">
