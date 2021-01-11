@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories;
 
 use App\Models\Channel;
 use App\Models\Thread;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\ThreadRepositoryInterface;
+use App\Interfaces\ThreadRepositoryInterface;
 
 class ThreadRepository implements ThreadRepositoryInterface
 {

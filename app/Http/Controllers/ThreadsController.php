@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ThreadRepositoryInterface;
+use App\Interfaces\ThreadRepositoryInterface;
 use App\Http\Requests\ThreadStoreRequest;
 use App\Http\Requests\ThreadUpdateRequest;
 use Illuminate\Http\Request;

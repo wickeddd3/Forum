@@ -53,7 +53,7 @@
                 </div>
                 <footer class="card-footer">
                     <a href="/register" class="card-footer-item">
-                        Already have an account ?
+                        Create new account
                     </a>
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" class="card-footer-item">

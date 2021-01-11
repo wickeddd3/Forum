@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories;
 
 use App\Models\Activity;
 use App\Models\Reply;
 use App\Models\Thread;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\ProfileRepositoryInterface;
+use App\Interfaces\ProfileRepositoryInterface;
 
 class ProfileRepository implements ProfileRepositoryInterface
 {

@@ -80,6 +80,11 @@
                         <button class="button is-success is-fullwidth" type="submit">Register</button>
                     </form>
                 </div>
+                <footer class="card-footer">
+                    <a href="/login" class="card-footer-item">
+                        Already have an account ?
+                    </a>
+                </footer>
             </div>
         </div>
     </div>

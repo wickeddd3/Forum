@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Repositories\ProfileRepositoryInterface;
+use App\Interfaces\ProfileRepositoryInterface;
 
 class ProfilesController extends Controller
 {

@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Repositories\Eloquent\ProfileRepository;
-use App\Repositories\Eloquent\ReplyRepository;
-use App\Repositories\Eloquent\ThreadRepository;
-use App\Repositories\ProfileRepositoryInterface;
-use App\Repositories\ReplyRepositoryInterface;
-use App\Repositories\ThreadRepositoryInterface;
+use App\Interfaces\ProfileRepositoryInterface;
+use App\Interfaces\ReplyRepositoryInterface;
+use App\Interfaces\ThreadRepositoryInterface;
+use App\Repositories\ProfileRepository;
+use App\Repositories\ReplyRepository;
+use App\Repositories\ThreadRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider

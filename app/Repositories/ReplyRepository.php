@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories;
 
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\Repositories\ReplyRepositoryInterface;
+use App\Interfaces\ReplyRepositoryInterface;
 
 class ReplyRepository implements ReplyRepositoryInterface
 {

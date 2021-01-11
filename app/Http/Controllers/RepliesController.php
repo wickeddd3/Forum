@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReplyStoreRequest;
 use App\Http\Requests\ReplyUpdateRequest;
-
 use App\Models\Channel;
 use App\Models\Thread;
 use App\Models\Reply;
-use App\Repositories\ReplyRepositoryInterface;
+use App\Interfaces\ReplyRepositoryInterface;
 
 class RepliesController extends Controller
 {
