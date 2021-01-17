@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Channel;
 use App\Models\Thread;
 
-class ThreadFollowsController extends Controller
+class ThreadFollowController extends Controller
 {
     public function __construct()
     {

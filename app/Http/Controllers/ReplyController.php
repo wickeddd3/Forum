@@ -9,7 +9,7 @@ use App\Models\Thread;
 use App\Models\Reply;
 use App\Interfaces\ReplyRepositoryInterface;
 
-class RepliesController extends Controller
+class ReplyController extends Controller
 {
     protected $replyRepository;
 

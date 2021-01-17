@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Interfaces\ProfileRepositoryInterface;
 
-class ProfilesController extends Controller
+class ProfileController extends Controller
 {
     protected $profileRepository;
 

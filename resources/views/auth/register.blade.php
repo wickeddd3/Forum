@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Forum | Register
+@endsection
+
 @section('content')
 <div class="container">
     <div class="columns is-flex is-justify-content-center mt-2">
@@ -77,7 +81,7 @@
                                         autocomplete="new-password">
                             </div>
                         </div>
-                        <button class="button is-success is-fullwidth" type="submit">Register</button>
+                        <button class="button is-success is-fullwidth has-text-weight-bold" type="submit">Register</button>
                     </form>
                 </div>
                 <footer class="card-footer">

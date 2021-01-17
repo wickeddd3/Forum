@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reply;
 
-class LikesController extends Controller
+class LikeController extends Controller
 {
     public function __construct()
     {

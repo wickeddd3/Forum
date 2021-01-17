@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Create Thread
+Forum | Create Thread
 @endsection
 
 @section('content')

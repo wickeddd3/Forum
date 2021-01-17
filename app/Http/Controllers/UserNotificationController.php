@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-class UserNotificationsController extends Controller
+class UserNotificationController extends Controller
 {
     public function __construct()
     {

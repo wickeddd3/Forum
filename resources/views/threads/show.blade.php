@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ $thread->title }}
+Forum | {{ $thread->title }}
 @endsection
 
 @section('content')

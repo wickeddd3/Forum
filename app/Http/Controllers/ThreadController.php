@@ -10,7 +10,7 @@ use App\Models\Thread;
 use App\Models\Channel;
 
 
-class ThreadsController extends Controller
+class ThreadController extends Controller
 {
     protected $threadRepository;
 

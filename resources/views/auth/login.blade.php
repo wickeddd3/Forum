@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Forum | Profile
+@endsection
+
 @section('content')
 <div class="container">
     <div class="columns is-flex is-justify-content-center mt-2">
@@ -48,7 +52,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button class="button is-success is-fullwidth" type="submit">Login</button>
+                        <button class="button is-success is-fullwidth has-text-weight-bold" type="submit">Login</button>
                     </form>
                 </div>
                 <footer class="card-footer">

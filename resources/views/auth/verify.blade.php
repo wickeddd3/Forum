@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Forum | Verify E-Mail
+@endsection
+
 @section('content')
 <div class="columns is-flex is-justify-content-center mt-5">
     <div class="column is-5">

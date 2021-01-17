@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Notifications
+Forum | Notifications
 @endsection
 
 @section('content')
