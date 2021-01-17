@@ -12,16 +12,14 @@ Forum | Notifications
     </h1>
     <div v-if="notifications.length">
         <template v-for="(notification, index) in notifications">
-            <div class="mb-1">
-                <a class="has-text-dark"
-                    :key="index"
-                    :href="notification.data.link"
-                    @click="markAsRead(notification)">
-                        <b-notification>
-                            <span v-text="notification.data.message"></span>
-                        </b-notification>
-                </a>
-            </div>
+            <a @click="markAsRead(notification)"
+               :href="notification.data.link"
+               :key="index"
+               class="p-1">
+                <div class="notification is-success is-light"
+                     v-text="notification.data.message">
+                </div>
+            </a>
         </template>
     </div>
     <div v-else>

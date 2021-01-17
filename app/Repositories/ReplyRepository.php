@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\ReplyRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\Interfaces\ReplyRepositoryInterface;
 
 class ReplyRepository implements ReplyRepositoryInterface
 {

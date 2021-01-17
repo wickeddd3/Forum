@@ -7,13 +7,13 @@ export default {
     },
 
     created() {
-        axios.get("/profiles/" + window.App.user.id + "/notifications")
+        axios.get(`/profiles/${window.App.user}/notifications`)
              .then(response => this.notifications = response.data);
     },
 
     methods: {
         markAsRead(notification) {
-            axios.delete('/profiles/' + window.App.user.id + '/notifications/' + notification.id)
+            axios.post(`/profiles/${window.App.user}/notifications`, {id: notification.id})
         }
     }
 }

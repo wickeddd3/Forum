@@ -1,5 +1,5 @@
 <template>
-<article class="media my-2" :class="{'has-background-success-light p-5': best_reply_id == data.id}" :id="'reply-'+id">
+<article class="media my-2" :class="{'has-background-success-light p-5': best_reply_id == data.id}" :id="`reply-${id}`">
     <div class="media-left">
         <figure class="image is-48x48">
             <img class="is-rounded" :src="'/storage/'+data.owner.avatar">

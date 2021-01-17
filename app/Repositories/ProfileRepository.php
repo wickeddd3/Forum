@@ -2,15 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Models\Activity;
+use App\Interfaces\ProfileRepositoryInterface;
 use App\Models\Reply;
 use App\Models\Thread;
+use App\Models\Activity;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Interfaces\ProfileRepositoryInterface;
 
 class ProfileRepository implements ProfileRepositoryInterface
 {
+    protected $thread, $reply;
+
+    public function __construct(Thread $thread, Reply $reply)
+    {
+        $this->thread = $thread;
+        $this->reply = $reply;
+    }
     public function authUser()
     {
         return Auth::user();
@@ -19,11 +26,11 @@ class ProfileRepository implements ProfileRepositoryInterface
     public function profile($username)
     {
         $authUser = $this->authUser();
-        $threads = Thread::where('user_id', Auth::id())->get();
-        $replies = Reply::where('user_id', Auth::id())->with('thread')->get();
+        $authUserThreads = $this->thread->where('user_id', Auth::id())->get();
+        $authUserReplies = $this->reply->where('user_id', Auth::id())->with('thread')->get();
         // $activity = Activity::feed($this->authUser());
 
-        return ["authUser" => $authUser, "threads" => $threads, "replies" => $replies, "activity" => []];
+        return ["authUser" => $authUser, "threads" => $authUserThreads, "replies" => $authUserReplies, "activity" => []];
     }
 
     public function update($request)

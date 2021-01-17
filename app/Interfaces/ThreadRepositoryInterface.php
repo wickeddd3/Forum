@@ -4,9 +4,9 @@ namespace App\Interfaces;
 
 interface ThreadRepositoryInterface
 {
-    public function all(string $channel);
+    public function index(string $channel);
 
-    public function create(object $request);
+    public function store(object $request);
 
     public function update(object $thread, object $request);
 

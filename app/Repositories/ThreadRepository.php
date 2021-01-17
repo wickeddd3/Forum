@@ -2,50 +2,56 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\ThreadRepositoryInterface;
 use App\Models\Channel;
 use App\Models\Thread;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Interfaces\ThreadRepositoryInterface;
 
 class ThreadRepository implements ThreadRepositoryInterface
 {
-    public function all($channel)
+    protected $thread, $channel;
+
+    public function __construct(Thread $thread, Channel $channel)
     {
-        $chan = Channel::where('slug', $channel)->first();
+        $this->thread = $thread;
+        $this->channel = $channel;
+    }
+    public function index($channel)
+    {
+        $selectedChannel = $this->channel->where('slug', $channel)->first();
 
-        $threads = Thread::latest()->paginate(10);
+        $threads = $this->thread->latest()->paginate(10);
 
-        if($chan) {
-            $threads = Thread::latest()->where('channel_id', $chan->id)->paginate(10);
+        if($selectedChannel) {
+            $threads =  $this->thread->latest()->where('channel_id', $selectedChannel->id)->paginate(10);
         }
 
-        switch($channel)
-        {
-            case "latest":
-                $threads = Thread::latestThreads()->paginate(10);
-            break;
-            case "popular":
-                $threads = Thread::popularThreads()->paginate(10);
-            break;
-            case "oldest":
-                $threads = Thread::oldestThreads()->paginate(10);
-            break;
+        $query = request()->query('search');
+
+        if($query) {
+            switch($query){
+                case "latest":
+                    $threads =  $this->thread->latestThreads()->paginate(10);
+                    break;
+                case "popular":
+                    $threads =  $this->thread->popularThreads()->paginate(10);
+                    break;
+                case "oldest":
+                    $threads =  $this->thread->oldestThreads()->paginate(10);
+                    break;
+                default:
+                    $threads =  $this->thread->where('title', 'LIKE', "%{$query}%")->paginate(10);
+                    $threads->appends(['search' => $query]);
+            }
         }
 
-        $search = request()->query('search');
-
-        if($search) {
-            $threads = Thread::where('title', 'LIKE', "%{$search}%")->paginate(10);
-            $threads->appends(['search' => $search]);
-        }
-
-        return ["channel" => $chan, "threads" => $threads];
+        return $threads;
     }
 
-    public function create($request)
+    public function store($request)
     {
-        Thread::create([
+        $this->thread->create([
             'user_id' => Auth::id(),
             'title' => $request->title,
             'content' => $request->content,

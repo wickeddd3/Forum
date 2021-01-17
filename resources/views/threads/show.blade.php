@@ -6,7 +6,7 @@ Forum | {{ $thread->title }}
 
 @section('content')
 <thread-view initial-replies-count="{{ $thread->replies_count }}" initial-follows-count="{{ $thread->followers()->count() }}" inline-template>
-<div class="container my-5">
+<div class="container my-5 px-3">
     <h1 class="title is-4 my-5">
         {{ $thread->title }}
         @if($thread->updated_at)<span class="subtitle is-6">(Edited)</span>@endif

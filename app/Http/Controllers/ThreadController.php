@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\ThreadRepositoryInterface;
 use App\Http\Requests\ThreadStoreRequest;
 use App\Http\Requests\ThreadUpdateRequest;
+use App\Interfaces\ChannelRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Thread;
 use App\Models\Channel;
@@ -13,40 +14,41 @@ use App\Models\Channel;
 class ThreadController extends Controller
 {
     protected $threadRepository;
+    protected $channelRepository;
 
-    public function __construct(ThreadRepositoryInterface $threadRepository)
+    public function __construct(ThreadRepositoryInterface $threadRepository, ChannelRepositoryInterface $channelRepository)
     {
         $this->middleware(['auth', 'verified'])->except('index', 'show');
 
         $this->threadRepository = $threadRepository;
+        $this->channelRepository = $channelRepository;
     }
 
     public function index($channel = null)
     {
-        $threads = $this->threadRepository->all($channel);
+        $threads = $this->threadRepository->index($channel);
 
         if(request()->wantsJson()) {
             return response()->json([
-                'threads' => $threads['threads'],
+                'threads' => $threads
             ]);
         }
 
         return view('threads.index')
-            ->with('channels', Channel::all())
-            ->with('channel', $threads['channel'])
-            ->with('threads', $threads['threads']);
+                ->with('channels', $this->channelRepository->index());
     }
 
     public function create()
     {
-        return view('threads.create')->with('channels', Channel::all());
+        return view('threads.create')
+                ->with('channels', $this->channelRepository->index());
     }
 
     public function store(ThreadStoreRequest $request)
     {
-        $this->threadRepository->create($request);
+        $this->threadRepository->store($request);
 
-        return redirect('/threads/latest');
+        return redirect('/threads');
     }
 
     public function show(Channel $channel, Thread $thread)
@@ -61,7 +63,9 @@ class ThreadController extends Controller
     {
         $this->authorize('edit', $thread);
 
-        return view('threads.edit')->with('thread', $thread)->with('channels', Channel::all());
+        return view('threads.edit')
+                ->with('thread', $thread)
+                ->with('channels', $this->channelRepository->index());
     }
 
     public function update(ThreadUpdateRequest $request, Channel $channel, Thread $thread)
